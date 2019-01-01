@@ -29,6 +29,7 @@ int main(){
     displayGameIntro();
     
     do{
+        
         playGame();
         displayGameSummary();
         bplayAgain = askToPlayAgain();
@@ -58,8 +59,8 @@ void displayGameIntro(){
 
 void playGame(){
     
-    int maxAttempt = BCGame.getMaxAttempt(); 
-    int wordLength = 7; // TODO: getWordLength
+    int maxAttempt = BCGame.getMaxAttempt(); // maximum attempt
+    int wordLength = BCGame.getWordLength(); // length of hidden word
     int currentTry = BCGame.getCurrentTry(); // counter
     bool isWon = false;
 
@@ -99,7 +100,6 @@ void playGame(){
 
             default:
                 break;
-
         }   
 
         currentTry = BCGame.getCurrentTry();

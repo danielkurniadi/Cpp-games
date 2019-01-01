@@ -33,12 +33,11 @@ class FBullCowGame {
     
     private:
         int currentTry=1;
-        int wordLength=7;
-        int maxAttempt=10;
+        int maxAttempt;
         bool isWon=false;
 
     private:
-        FText HIDDEN_WORD = "bookish";
+        FText HIDDEN_WORD;
 
     private:
         FText getHiddenWord();
