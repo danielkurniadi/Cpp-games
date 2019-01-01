@@ -3,7 +3,7 @@
 #include "FBullCowGame.h"
 
 using FText = std::string;
-using uint32 = int;
+using int32 = int;
 
 void displayGameIntro();
 void playGame();
@@ -25,22 +25,20 @@ FBullCowGame BCGame; // new game instance
 
 int main(){
 
-    bool bplayAgain = False;
+    bool bplayAgain = false;
     displayGameIntro();
     
     do{
         playGame();
         displayGameSummary();
-
         bplayAgain = askToPlayAgain();
+    } while(bplayAgain);
 
-    } while(bplayAgain)
-
-    return 0
+    return 0;
 }
 
 void displayGameIntro(){
-    	std::cout <<"      Welcome to Bulls and Cows, a fun word game.\n";
+    std::cout <<"      Welcome to Bulls and Cows, a fun word game.\n";
 	std::cout << std::endl;
 	std::cout << "        ,           ,          " << std::endl;
 	std::cout << "       /             \\                /) (\\ " << std::endl;
@@ -51,58 +49,69 @@ void displayGameIntro(){
 	std::cout << "            ): :(                   ) `----' (" << std::endl;
 	std::cout << "            (o_o)                  /`-. __ .-'\\ " << std::endl;
 	std::cout << "             ' '   " << std::endl;
-	std::cout << "\nCan you guess the " << BCGame.GetHiddenWordLength();
+	std::cout << "\nCan you guess the " << BCGame.getWordLength();
 	std::cout << " letter isogram I'm thinking of?";
 	std::cout << std::endl;
 	return;
 };
 
-void playGames(){
+
+void playGame(){
     
-    int maxTries = BCGame.getMaxTry();
-    int currentTry = 1;
-    bool isWin = False;
+    int maxAttempt = BCGame.getMaxAttempt(); 
+    int wordLength = 7; // TODO: getWordLength
+    int currentTry = BCGame.getCurrentTry(); // counter
+    bool isWon = false;
 
     BCGame.reset();
     
-    FText playerGuess, errorMsg;
+    FText playerGuess;
     FResponse response;
 
-    while(currentTry < maxTries && !isWin) {
+    while(currentTry < maxAttempt && !isWon) {
         std::cout << "Your guess: ";
-        getline(std:cin, playerGuess);
+        getline(std::cin, playerGuess);
         
-        response = BCGame.submitPlayerGuess();
-        
+        response = BCGame.submitPlayerGuess(playerGuess); // immediately get the response
+
         switch(response.guessStatus){
-            case(eGuessStatus::Win):
+            
+            case(EGuessStatus::Win):
                 std::cout << "Congratulations! You guess it right" << std::endl;
-                isWin = True;
+                isWon = true;
                 break;
             
-            case(eGuessStatus::Valid):
+            case(EGuessStatus::Valid):
                 std::cout << "Bulls: " << response.bulls << std::endl;
                 std::cout << "Cows: " << response.cows << std::endl;
                 std::cout << "Your guess is: " <<  std::endl;
                 break;
 
-            case(eGuessStatus::Invalid):
-                errorMsg = ""; //TODO: fill in error message
-
-                std::cout << "Invalid answer" << std::endl;
+            case(EGuessStatus::Not_Alphabet):
+                std::cout << "Invalid answer. " << "The input should be strictly alphabet." << std::endl;
                 std::cout << "Please check your answer again before your submit." << std::endl;        
-        
+                break;
+
+            case(EGuessStatus::Incorrect_Length):
+                std::cout << "Incorrect length. " << "The hidden word should be strictly of length " << wordLength << std::endl;
+                std::cout << "Please check your answer again before your submit." << std::endl;        
+                break;
+
             default:
                 break;
+
         }   
 
-        return
-        
+        currentTry = BCGame.getCurrentTry();
     }
+    return ;
 };
 
+bool askToPlayAgain(){
+    return true;
+}
 
 void displayGameSummary(){
-    std::cout << "Summary: " << std:endl;
+    std::cout << "Summary: " << std::endl;
 }
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-using Ftext = std::string;
+using FText = std::string;
 using int32 = int;
 
 enum class EGuessStatus {
@@ -15,7 +15,7 @@ struct FResponse {
     int32 bulls;
     int32 cows;
     EGuessStatus guessStatus;
-}
+};
 
 class FBullCowGame {
     public:
@@ -24,16 +24,25 @@ class FBullCowGame {
     public: 
         void reset();
 
-        int32 getMaxTries() const;
+        int32 getMaxAttempt() const;
         int32 getCurrentTry() const;
-        int32 getHiddenWordLength() const;
+        int32 getWordLength() const;
         int32 setDifficultyLevel() const;
 
-        FResponse submitPlayerGuess(FText playerGuess);
+        FResponse submitPlayerGuess(FText);
     
     private:
+        int currentTry=1;
+        int wordLength=7;
+        int maxAttempt=10;
+        bool isWon=false;
+
+    private:
+        FText HIDDEN_WORD = "bookish";
+
+    private:
         FText getHiddenWord();
-        EGuessStatus checkValidity(FText playerGuess);
+        EGuessStatus checkValidity(FText);
 
 
-}   
+}  ;
