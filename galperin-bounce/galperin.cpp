@@ -2,20 +2,24 @@
 #include <cmath>
 #include <string>
 
+typedef struct{
+    float positionX;
+    float velocity;
+    float mass;
+} Particle1D;
+
 
 int main()
 {
-    float v_m = 0.0;
-    float x, v_M;
-
-    std::cout << "Welcome to Galperin Bounce Simulation" << std::endl;
+    Particle1D bigBox;
 
     std::cout << "Enter initial velocity for big box: ";
-    std::cin >> v_M;
+    std::cin >> bigBox.velocity;
 
     std::cout << "Enter the mass for big box: ";
-    std::cin>> x;
+    std::cin>> bigBox.mass;
 
     std::cout << "Calculating..." << std::endl;
-    
+
 }
+
